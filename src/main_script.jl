@@ -4,6 +4,10 @@ Pkg.add(url=raw"https://github.com/kafisatz/GT7CarAlert.jl")
 
 using GT7CarAlert
 
+#example files can be found here
+#https://raw.githubusercontent.com/kafisatz/GT7CarAlert.jl/main/pushover_config_example.txt
+#https://raw.githubusercontent.com/kafisatz/GT7CarAlert.jl/main/gt7_missing_cars.csv
+
 ENV["PUSHOVER_CONFIG_GT7"] = raw"C:\Users\bernhard\.pushover\pushover_config.txt"
 ENV["CAR_LIST_GT7"] = normpath(joinpath(pathof(GT7CarAlert),"..","..","gt7_missing_cars.csv"))
 
