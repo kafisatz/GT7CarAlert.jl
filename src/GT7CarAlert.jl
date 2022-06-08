@@ -62,6 +62,9 @@ function print_info(cars_want,current_BrandModel,matched_cars,detailed::Bool)
         @info("Several cars you want are currently at hagerty (length = $(length(matched_cars))):")
         println.(matched_cars)
         println()
+    else 
+        @info("No cars you seek are currently being offered by Hagerty.")
+        println()
     end
 
     return nothing
@@ -159,7 +162,18 @@ if haskey(ENV,"CAR_LIST_GT7") && isfile(ENV["CAR_LIST_GT7"])
     car_list_file = ENV["CAR_LIST_GT7"]
 end
 
-number_of_seconds_to_sleep = 120
+default_s = 1800
+number_of_seconds_to_sleep = default_s
+if haskey(ENV,"NUMBER_OF_SECONDS_TO_SLEEP")
+    try 
+        number_of_seconds_to_sleep = parse(Int,ENV["NUMBER_OF_SECONDS_TO_SLEEP"])
+    catch ero 
+        @show ero 
+        @info("Unable to parse ENV[\"NUMBER_OF_SECONDS_TO_SLEEP\"]=$(ENV["NUMBER_OF_SECONDS_TO_SLEEP"]) as integer")
+        number_of_seconds_to_sleep = default_s
+    end
+end
+@show number_of_seconds_to_sleep
 
 ##############################################
 #Initialization of script settings
