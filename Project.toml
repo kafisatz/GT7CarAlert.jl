@@ -1,7 +1,7 @@
 name = "GT7CarAlert"
 uuid = "2a8c1adb-a1f1-4fb4-945f-bd2847f24987"
 authors = ["Bernhard König <github@diro.ch>"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
