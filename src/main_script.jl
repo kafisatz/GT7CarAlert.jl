@@ -17,7 +17,7 @@ using GT7CarAlert
 ENV["PUSHOVER_CONFIG_GT7"] = raw"C:\Users\bernhard\.pushover\pushover_config.txt"
 ENV["CAR_LIST_GT7"] = normpath(joinpath(pathof(GT7CarAlert),"..","..","gt7_missing_cars.csv"))
 
-ENV["NUMBER_OF_SECONDS_TO_SLEEP"] = "130"
+ENV["NUMBER_OF_SECONDS_TO_SLEEP"] = "3600"
 
 @assert isfile(ENV["PUSHOVER_CONFIG_GT7"])
 @assert isfile(ENV["CAR_LIST_GT7"])
