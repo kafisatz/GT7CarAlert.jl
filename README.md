@@ -1,6 +1,6 @@
 # GT7CarAlert.jl
-Notification for GT7 Legendary Cars
-
+Pushover notifications for GT7 Legendary Cars.
+This is a monitoring script which issues Pushover notifications based on a user specific list of 'missing' legendary cars and the cars currently available at Hagerty.
 
 ## Installation
 This script requires Julia to be installed, see https://julialang.org/downloads/
