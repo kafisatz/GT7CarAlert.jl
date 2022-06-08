@@ -5,7 +5,7 @@ Pkg.add(url=raw"https://github.com/kafisatz/GT7CarAlert.jl")
 =#
 
 #run the next line in order to trigger a package update
-#using Pkg; Pkg.update("GT7CarAlert.jl")
+#using Pkg; Pkg.update()
 
 @assert VERSION >= v"1.6"
 using GT7CarAlert
