@@ -28,6 +28,8 @@ The script loops over all cars in the legendary shop as follows:
 Once you execute the lines in main_script.jl, specifically `GT7CarAlert.main_script_with_init()` you will trigger an infinite loop that regularly checks the JSON data https://ddm999.github.io/gt7info/data.json, see also https://ddm999.github.io/gt7info/.
 You can update "gt7_missing_cars.csv" at any time. It will be read each time the script runs. 
 
+If pushover is configured properly, you will receive a test message when the script is started and then notifications if any of 'your' cars are offered at Hagerty.
+
 ## Notes
 * Note: the value of 'state' in the JSON data (limited, normal, sold out) is currently ignored. 
 * For Testing purposes you may want to reduce the value of `ENV["NUMBER_OF_SECONDS_TO_SLEEP"]`.
