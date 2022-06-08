@@ -6,11 +6,11 @@ using JSON3
 pushover_config_file = joinpath(ENV["HOMEPATH"],".pushover","pushover_config.txt")
 @assert isfile(pushover_config_file)
 pocreds = get_pushover_creds(pushover_config_file)
-ret_val = send_notification(pocreds,"Pushover test message from GT7CarAlert.jl script.")
-@test ret_val
+return_value_pushover_test = send_notification(pocreds,"Pushover test message from GT7CarAlert.jl script.")
+@show return_value_pushover_test
     
 car_list_file = normpath(joinpath(pathof(GT7CarAlert),"..","..","gt7_missing_cars.csv"))
-@test isfile(car_list_file)
+@assert isfile(car_list_file)
 
 number_of_seconds_to_sleep = 120
 @assert number_of_seconds_to_sleep>0
