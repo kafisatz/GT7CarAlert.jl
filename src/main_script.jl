@@ -17,9 +17,11 @@ using GT7CarAlert
 ENV["PUSHOVER_CONFIG_GT7"] = raw"C:\Users\bernhard\.pushover\pushover_config.txt"
 ENV["CAR_LIST_GT7"] = normpath(joinpath(pathof(GT7CarAlert),"..","..","gt7_missing_cars.csv"))
 
+#This is the number of seconds between each query. As the cars only change daily, a high value of 1 hour (or even considerably more) is sufficient (3600 seconds = 1 hour)
 ENV["NUMBER_OF_SECONDS_TO_SLEEP"] = "3600"
 
 @assert isfile(ENV["PUSHOVER_CONFIG_GT7"])
 @assert isfile(ENV["CAR_LIST_GT7"])
 
+#run script
 GT7CarAlert.main_script_with_init()
