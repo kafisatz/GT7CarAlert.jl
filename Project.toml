@@ -2,3 +2,10 @@ name = "GT7CarAlert"
 uuid = "2a8c1adb-a1f1-4fb4-945f-bd2847f24987"
 authors = ["Bernhard König <github@diro.ch>"]
 version = "0.1.0"
+
+[deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
+Pushover = "1d40253f-d7d5-5bc2-be73-07f0f24a3532"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
