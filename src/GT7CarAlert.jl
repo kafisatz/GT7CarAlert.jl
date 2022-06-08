@@ -1,7 +1,7 @@
 module GT7CarAlert
 
 using DelimitedFiles
-using Dates 
+using Dates
 using JSON3
 using Pushover
 
@@ -38,7 +38,7 @@ function match_cars(current,current_BrandModel,cars_want)
     matched_cars = String[]
     #c = first(current_BrandModel)
     for c in current_BrandModel
-        if any(map(x->occursin(x,c),cars_want))
+        if any(map(x->occursin(lowercase(x),lowercase(c)),cars_want))
             push!(matched_cars,c)
         end
     end
@@ -110,7 +110,6 @@ function get_pushover_creds(pushover_config_file)
     pushoverCONFIG = Dict("USER_KEY" => key,"API_TOKEN" => token,"TITLE" => title,"PRIORITY" => priority)
     return pushoverCONFIG
 end
-
 
 export main_loop_function 
 function main_loop_function(pocreds,car_list_file)
@@ -197,7 +196,7 @@ return_value_pushover_test = send_notification(pocreds,"Pushover test message fr
 while true
     try
         main_loop_function(pocreds,car_list_file)
-    catch er         
+    catch er
         @show er
         @warn("GT7CarAlert.jl script ran into an error (see message above this line)!\r\nThe script will retry in $(number_of_seconds_to_sleep) seconds:")
     end
