@@ -1,3 +1,6 @@
+export main_jot_call
+export response_func
+
 function main_jot_call(car_vec::Vector{String})
 #=
 car_vec=["250 GT Berlinetta passo corto", "Cobra Daytona", "XJ13", "F40", "Fairlady Z 432", "McLaren F1 GTR", "911 GT1 Strassenversion"]
@@ -9,3 +12,5 @@ car_vec=["250 GT Berlinetta passo corto", "Cobra Daytona", "XJ13", "F40", "Fairl
     r = compare_carlists(pocreds,car_list_file)
     return r 
 end
+
+response_func = main_jot_call
