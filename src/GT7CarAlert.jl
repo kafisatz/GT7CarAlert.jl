@@ -111,10 +111,15 @@ function get_pushover_creds(pushover_config_file)
     return pushoverCONFIG
 end
 
-export main_loop_function 
-function main_loop_function(pocreds,car_list_file)
+export compare_carlists 
+function compare_carlists(pocreds,car_list_file)
 #read list of cars
     cars_want = read_carlist(car_list_file)
+    return compare_carlists_StringVec(pocreds,cars_want)
+end 
+
+export compare_carlists_StringVec 
+function compare_carlists_StringVec(pocreds,cars_want::Vector{String})
 #read JSON
     current,current_BrandModel = get_cars_currently_at_hagerty()
 #matched cars
@@ -122,11 +127,17 @@ function main_loop_function(pocreds,car_list_file)
 #printing
     print_info(cars_want,current_BrandModel,matched_cars,true)
 #send out pushover notification
+    po_is_disabled = get(pocreds,"DISABLE_PUSHOVER",false)
     ret_val = false
-    if length(matched_cars)>0
-        msg = string("$(length(matched_cars)) cars you seek are available at Hagerty: ",join(matched_cars," ### "))
-        ret_val = send_notification(pocreds,msg)
-    end
+    if po_is_disabled
+        ret_val = true
+    else
+        ret_val = false
+        if length(matched_cars)>0
+            msg = string("$(length(matched_cars)) cars you seek are available at Hagerty: ",join(matched_cars," ### "))
+            ret_val = send_notification(pocreds,msg)
+        end
+    end 
 
     if length(matched_cars)>0
         return ret_val,matched_cars
@@ -181,6 +192,7 @@ end
 @assert isfile(pushover_config_file)
 
 pocreds = get_pushover_creds(pushover_config_file)
+pocreds["DISABLE_PUSHOVER"] = true
 @assert isa(pocreds,Dict)
 @assert haskey(pocreds,"USER_KEY")
 @assert haskey(pocreds,"API_TOKEN")
@@ -195,7 +207,7 @@ return_value_pushover_test = send_notification(pocreds,"Pushover test message fr
 ##############################################
 while true
     try
-        main_loop_function(pocreds,car_list_file)
+        compare_carlists(pocreds,car_list_file)
     catch er
         @show er
         @warn("GT7CarAlert.jl script ran into an error (see message above this line)!\r\nThe script will retry in $(number_of_seconds_to_sleep) seconds:")

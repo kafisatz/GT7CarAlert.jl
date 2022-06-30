@@ -26,14 +26,14 @@ using JSON3
     tmpfi,io = mktemp()
     writedlm(tmpfi,cars_want)
 
-    rv,matched_cars = main_loop_function(pocreds,tmpfi)
+    rv,matched_cars = compare_carlists(pocreds,tmpfi)
     @test rv
     @test length(matched_cars) == length(cars_want)
 
     #case where no cars should match
     tmpfi,io = mktemp()
     writedlm(tmpfi,["does_not_exist1","miha"])
-    rv,matched_cars = main_loop_function(pocreds,tmpfi)
+    rv,matched_cars = compare_carlists(pocreds,tmpfi)
     @test rv
     @test length(matched_cars) == 0
 end
