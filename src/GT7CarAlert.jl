@@ -218,4 +218,6 @@ end
 return nothing
 end
 
+include("jot_functions.jl")
+
 end # module
