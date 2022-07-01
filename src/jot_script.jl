@@ -38,17 +38,51 @@ function dockerfile_add_additional_registries(additional_registries::Vector{Stri
 use_pc = true
 use_pc = false
 #create_lambda_components
+local_image = get_local_image("4cbb9184f65c")
 local_image = create_local_image(responder,julia_base_version="1.6.6",package_compile = use_pc)
 #@edit create_local_image(responder,julia_base_version="1.6.6",package_compile = use_pc)
 
-#test1 
-run_test(local_image, ["test","mihi x"], (true,String[]))
+#test1
+#run_test(local_image, ["test","mihi x"], (true,String[]))
+run_test(local_image, ["test","mihi x"], [true, Union{}[]])
 #the next asswert will depend on the cars actually listed at the current time!
 run_test(local_image,test_inputv2,(true,["Ferrari F40 '92", "Jaguar XJ13 '66"]))
 
-
 show_lambdas()
 
+aws_config = Jot.get_aws_config(local_image)
+image_suffix = Jot.get_lambda_name(local_image)
+c = Jot.get_ecr_login_script(aws_config, image_suffix)
+run(`powershell -Command \" $c\"`)
+
+image = local_image
+@edit get_ecr_repo(image)
+@edit create_ecr_repo(image)
+existing_repo = get_ecr_repo(image)
+
+labels = get_labels(image)
+create_script = Jot.get_create_ecr_repo_script(Jot.get_lambda_name(image),Jot.get_aws_region(image),labels,)
+create_script = replace(create_script,"\\\n"=>""); create_script = replace(create_script,"\n"=>"")
+create_script= replace(create_script,"   "=>" ");create_script = replace(create_script,"  "=>" ")
+run(`powershell -Command $create_script`)
+repo_json = readchomp(`powershell -Command $create_script`)
+
+"docker push 118565850953.dkr.ecr.region.amazonaws.com/my-repository:tag"
+repo = if isnothing(existing_repo)
+create_ecr_repo(image)
+else
+existing_repo
+end
+push_script = get_image_full_name_plus_tag(image) |> get_docker_push_script
+readchomp(`bash -c $push_script`)
+all_images = get_all_local_images()
+img_idx = findfirst(img -> img.ID[1:docker_hash_limit] == image.ID[1:docker_hash_limit], all_images)
+image.Digest = all_images[img_idx].Digest
+out = get_remote_image(image)
+@debug out
+out
+
+@edit push_to_ecr!(local_image)
 remote_image = push_to_ecr!(local_image)
 lambda = create_lambda_function(remote_image)
 
