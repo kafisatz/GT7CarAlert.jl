@@ -116,12 +116,16 @@ function compare_carlists(pocreds,car_list_file)
 #read list of cars
     cars_want = read_carlist(car_list_file)
     return compare_carlists_StringVec(pocreds,cars_want)
-end 
+end
 
 export compare_carlists_StringVec 
 function compare_carlists_StringVec(pocreds,cars_want::Vector{String})
 #read JSON
-    current,current_BrandModel = get_cars_currently_at_hagerty()
+    current0,current_BrandModel0 = get_cars_currently_at_hagerty()
+    states = map(x->x.state,current0)
+    idx_is_available = states .!= "soldout"
+    current_BrandModel = current_BrandModel0[idx_is_available]
+    current = current0[idx_is_available]
 #matched cars
     matched_cars = match_cars(current,current_BrandModel,cars_want)
 #printing
