@@ -192,7 +192,7 @@ end
 @assert isfile(pushover_config_file)
 
 pocreds = get_pushover_creds(pushover_config_file)
-pocreds["DISABLE_PUSHOVER"] = true
+pocreds["DISABLE_PUSHOVER"] = false
 @assert isa(pocreds,Dict)
 @assert haskey(pocreds,"USER_KEY")
 @assert haskey(pocreds,"API_TOKEN")
