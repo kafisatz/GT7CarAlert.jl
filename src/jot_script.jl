@@ -6,11 +6,11 @@ using Jot
 
 responder = get_responder(GT7CarAlert, :response_func, Vector{String})
 #responder = get_responder("/path/to/project", :response_func, String)
-#responder = get_responder("https://github.com/harris-chris/JotTest3/blob/main/Project.toml", :response_func, Vector)
+#responder = get_responder("https://github.com/kafisatz/GT7CarAlert.jl", :response_func, Vector)
 
 use_pc = true
 use_pc = false
-create_lambda_components
+#create_lambda_components
 local_image = create_local_image(responder,julia_base_version="1.6.6",package_compile = use_pc)
 
 run_test(local_imagePC, "test", "test Responded")
