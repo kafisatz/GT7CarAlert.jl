@@ -9,7 +9,7 @@ car_vec=["250 GT Berlinetta passo corto", "Cobra Daytona", "XJ13", "F40", "Fairl
     pocreds["DISABLE_PUSHOVER"] = true
     #@assert isa(pocreds,Dict)
 
-    r = compare_carlists(pocreds,car_list_file)
+    r = compare_carlists_StringVec(pocreds,car_vec)
     return r 
 end
 
