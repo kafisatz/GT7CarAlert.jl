@@ -63,9 +63,15 @@ function print_info(cars_want,current_BrandModel,matched_cars,detailed::Bool)
         println.(matched_cars)
         println()
     else 
-        @info("No cars you seek are currently being offered by Hagerty.")
+        @info("No cars you seek are currently being offered by Hagerty.")        
         println()
     end
+
+    println()
+    println()
+    println("########################################################")
+    println(now())
+    println("########################################################")
 
     return nothing
 end
