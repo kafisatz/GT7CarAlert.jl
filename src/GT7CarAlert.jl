@@ -182,7 +182,7 @@ if haskey(ENV,"CAR_LIST_GT7") && isfile(ENV["CAR_LIST_GT7"])
     car_list_file = ENV["CAR_LIST_GT7"]
 end
 
-default_s = 3600
+default_s = 4*3600
 number_of_seconds_to_sleep = default_s
 if haskey(ENV,"NUMBER_OF_SECONDS_TO_SLEEP")
     try 
